@@ -2,9 +2,6 @@
 ユーザー毎の初期設定
 *)
 
---"ブログのURL/admin.php"を入れる ※必ず書き換えてください
-property myURL : "『ブログのURL』/admin.php"
-
 --ユーザ名、もしくは登録しているメールアドレスを入れる　※必ず書き換えてください
 property myID : "『ユーザ名』"
 
@@ -24,6 +21,7 @@ property overwrite : "force"
 *)
 
 
+property myURL : "http://control.blog.fc2.com/control.php"
 property msg1 : "管理画面のパスワードを入力" as Unicode text
 property msg2 : "終了しました。" as Unicode text
 property msg3 : "ログインに失敗しました。" as Unicode text
@@ -43,7 +41,7 @@ on open drop
 		error number -128
 	end if
 	
-	--POST時に送信するCRCの値を取得（コード中にタブ記号が含まれています）
+	--POST時に送信するCRCの値を取得
 	set getCrcScript to "curl -b " & cookiePath & " -d \"mode=control&process=upload\" -L " & myURL & " | grep 'name=\"crc\"' | sed 's/	*<input.*value=\"//' | sed 's/\".*'//"
 	set returnedCrc to 1st paragraph of (do shell script getCrcScript as string)
 	
